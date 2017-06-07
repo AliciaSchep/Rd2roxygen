@@ -46,7 +46,10 @@ parse_file = function(path) {
   if (identical(out$aliases, out$name)) {
     out$aliases = NULL
   }
-  out$keywords = unname(sapply(rd[names(rd) == "keyword"], "[[", 1))
+  out$keywords = unlist(lapply(rd[names(rd) == "keyword"], 
+                        function(x){ 
+                          if (length(x) == 0) return(NULL) else return(x[[1]])}),
+                        use.names = FALSE)
 
   # Pull apart arguments
   arguments = rd$arguments
