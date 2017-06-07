@@ -52,6 +52,7 @@ parse_file = function(path) {
   arguments = rd$arguments
   arguments = arguments[sapply(arguments, tag) != "TEXT"]
   out$params = unlist(sapply(arguments, function(argument) {
+    if (length(argument[[1]]) == 0) return(NULL)
     if (tag(argument) != '\\item') return(NULL)
     paste(if (tag(argument[[1]][[1]]) == "\\dots")
       "\\dots" else gsub(' +', '', argument[[1]]),
